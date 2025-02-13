@@ -158,3 +158,27 @@ To deploy on **Render, Vercel, or Railway**, ensure:
 ## Done! 🎉  
 Your Express.js server is now set up and ready to use! 🚀
 
+
+## 9. Test Response of Blogs (Hardcoded Array)
+- First lets use the route "/blogs" to check the response
+```bash
+app.get('/blogs',() => {
+    res.json(blogs)
+})
+```
+the array of blogs
+```bash
+const blogs = [
+{id:1 , name:"blog 1"},
+{id:2 , name:"blog 2"},
+{id:3 , name:"blog 3"},
+{id:4 , name:"blog 4"},
+{id:5 , name:"blog 5"},
+{id:6 , name:"blog 6"},
+{id:7 , name:"blog 7"},
+{id:8 , name:"blog 8"},
+{id:9 , name:"blog 9"},
+{id:10 , name:"blog 10"},
+]
+```
+
