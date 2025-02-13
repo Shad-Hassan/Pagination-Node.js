@@ -92,55 +92,9 @@ app.listen(PORT, () => {
 
 ---
 
-## 5. Run the Server
+## 5. Package.json Script
 
-To start the server:
-```bash
-node app.js
-```
-
-To use **nodemon** for automatic restarts:
-```bash
-npm install -g nodemon
-nodemon app.js
-```
-
----
-
-## 6. Setup Environment Variables (`.env` file)
-
-Edit `.env` and define your variables:
-```
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-```
-
-Update `app.js` to load `.env` variables:
-```javascript
-require('dotenv').config();
-const mongoose = require('mongoose');
-
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("MongoDB Connected"))
-    .catch(err => console.error("MongoDB Connection Failed:", err));
-```
-
----
-
-## 7. Initialize Git (Optional)
-
-If using Git, initialize a repository:
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-```
-
----
-
-## 8. Package.json Script
-
-To deploy on **Render, Vercel, or Railway**, ensure:
+ensure dev mode using nodemon:
 - Your `package.json` includes a start script:
   ```json
   "scripts": {
@@ -150,16 +104,18 @@ To deploy on **Render, Vercel, or Railway**, ensure:
     "lint": "eslint ."
   },
   ```
-- Upload your project to GitHub  
-- Deploy using a free hosting platform like Render or Railway  
 
 ---
 
-## Done! 🎉  
-Your Express.js server is now set up and ready to use! 🚀
+## 6. Run the Server
 
+To start the server:
+```bash
+nodemon app.js
+```
+---
 
-## 9. Test Response of Blogs (Hardcoded Array)
+## 7. Test Response of Blogs (Hardcoded Array)
 - First lets use the route "/blogs" to check the response
 ```bash
 app.get('/blogs',() => {
@@ -180,5 +136,24 @@ const blogs = [
 {id:9 , name:"blog 9"},
 {id:10 , name:"blog 10"},
 ]
+```
+## 8. Test a simple pagination by hardcoded Queries
+- Now try testing filtered results from the blogs , by using property of page and limit
+```bash
+http://localhost:5000/limitBlogs?page=1&limit=3
+```
+while this should be the function that fixed the page a
+
+```bash
+app.get('/static-limit-blogs', (req, res) => {
+    const page = parseInt(req.query.page)
+    const limit = parseInt(req.query.limit)
+
+    const startIndex = (page - 1) * limit
+    const lastIndex = page * limit
+
+    const resultBlogs = blogs.slice(startIndex, lastIndex)
+    res.send(resultBlogs)
+})
 ```
 
